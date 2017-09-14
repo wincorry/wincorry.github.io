@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>南波Win博客</title>
+    <link>http://yoursite.com/</link>
+    <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>前端、健身、摄影、资源分享</description>
+    <pubDate>Thu, 14 Sep 2017 05:31:51 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>hello WC</title>
+      <link>http://yoursite.com/2017/09/14/hello-WC/</link>
+      <guid>http://yoursite.com/2017/09/14/hello-WC/</guid>
+      <pubDate>Thu, 14 Sep 2017 04:05:01 GMT</pubDate>
+      <description>
+      
+        __毫无疑问__
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/09/14/hello-WC/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>
