@@ -157,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/first-post/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/vue2-ie9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -171,7 +171,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/05/21/first-post/" class="post-title-link" itemprop="url">我的第一个post</a>
+            <a href="/2022/05/21/vue2-ie9/" class="post-title-link" itemprop="url">基于Vue2开发的项目在IE9+上的适配方案</a>
         </h2>
 
         <div class="post-meta">
@@ -188,7 +188,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-22 10:53:04" itemprop="dateModified" datetime="2022-05-22T10:53:04+08:00">2022-05-22</time>
+                <time title="修改时间：2022-05-24 12:33:43" itemprop="dateModified" datetime="2022-05-24T12:33:43+08:00">2022-05-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -211,7 +211,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="1-首页白屏"><a href="#1-首页白屏" class="headerlink" title="1.首页白屏"></a>1.首页白屏</h2><p><img src="https://tva1.sinaimg.cn/large/0061kgHvly1h2jd0lp63hj30n807d0w6.jpg" alt="img1.png"></p>
+<p>​		根据网上相关资料研究发现，是因为<code>vue-cli2</code>版本下的一些插件不兼容<code>babel-polyfill</code>，经过一项项的测试，在注释掉<code>src\views\dashboard</code>下的<code>Chat.vue</code>以及<code>src\views\</code>下的<code>Logout.vue</code>中的<code>&quot;import * as io from &#39;socket.io-client&#39;&quot;</code>后，白屏问题解决。而因为该两个文件中虽然引用了<code>socket.io-client</code>，但没有在代码中使用它，所以删掉这两处的引用，对项目功能无影响。</p>
+<h2 id="2-登录页点击登录报错"><a href="#2-登录页点击登录报错" class="headerlink" title="2.登录页点击登录报错"></a>2.登录页点击登录报错</h2><p><img src="https://tva1.sinaimg.cn/large/0061kgHvly1h2jd8me6r3j30pl0algq6.jpg" alt="图片 10.png"></p>
+<p>​		这是跨域问题，解决方法：在<code>app.js</code>的<code>jquery</code>的引用下加上这么一句话：<code>jQuery.support.cors = true;</code></p>
+<h2 id="3-表格的icon样式错乱"><a href="#3-表格的icon样式错乱" class="headerlink" title="3.表格的icon样式错乱"></a>3.表格的icon样式错乱</h2><p><img src="https://tva1.sinaimg.cn/large/0061kgHvly1h2jdbmxtvwj30su01ewel.jpg" alt="图片 19.png"></p>
+<p>​		原因是<code>ie9</code>浏览器中<code>top</code>和<code>bottom</code>属性值与其他浏览器中有差异。解决方法，重写样式：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0061kgHvly1h2jddzn5arj30a607cwga.jpg" alt="图片 20.png"></p>
+<h2 id="4-上传点击无效"><a href="#4-上传点击无效" class="headerlink" title="4.上传点击无效"></a>4.上传点击无效</h2><p>​		<code>ie9</code>不支持<code>formData</code>，该项目使用的<code>element-ui</code>的<code>upload</code>组件不支持<code>ie9</code>。解决方法：使用 <code>vue-upload-component</code> 插件重写<code>ie9</code>浏览器下的上传组件。</p>
+<p>​		在上传页面根据<code>&quot;typeof FormData !== &#39;undefined&#39;&quot;</code>做判断，如果是<code>true</code>则是<code>ie9+</code>或谷歌等浏览器，则使用<code>element-ui</code>的上传组件。如果为<code>false</code>则使用<code>vue-upload-component</code>插件。</p>
+<p>​		但经过测试发现，上传接口中没有请求头<code>Authorization</code>，且上传文件变成下载文件。在调试该插件源码后发现，原来是<code>ie9</code>不支持<code>formData</code>上传，只支持<code>form</code>表单上传，但<code>form</code>表单上传又不支持<code>header</code>请求头，也就是说无法传递用户认证到后台，这必须将后端上传接口中的认证去掉才能实现。</p>
+<p>​		经修改，将<code>token</code>加在请求地址后面，<code>ie9</code>已经可以正常上传文件了。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`postAction:dataServerUrl + &quot;api/Upload/submitUpload?token=&quot; + User.userToken`</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><em>未完待续···</em></p>
+
       
     </div>
 
